@@ -6,7 +6,7 @@ Antes que de ponerte manos a la obra ¡procura leer atentamente todo el document
 
 La finalidad de esta aplicación es registrar tus pendientes (TODO's desde ahora) pudiendo agregarlos a la lista, eliminarlos y/o marcarlos como terminados (editarlos). Esta aplicación se conecta con una REST API (json server de solo lectura) para mantener los datos guardados fuera de la aplicación, API que tambien permite realizar las mismas acciones mencionadas anteriormente.
 
-Lamentablemente esta app esta rota, asi que deberás crear, reparar e implementar los siguientes puntos para que funcione correctamente:
+Lamentablemente esta app esta rota, asi que deberás crear, reparar e implementar los siguientes puntos para que funcione correctamente::
 
 - Crear store de Redux para los TODO's. El store debe poder realizar lo siguiente:
   - Cargar una lista de TODO's
