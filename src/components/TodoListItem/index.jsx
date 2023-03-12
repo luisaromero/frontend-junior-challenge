@@ -3,7 +3,7 @@ import "./styles.css";
 
 const TodoListItem = ({ todos, onCheck, checked, onDelete }) => {
   return (
-    <>
+    <div className="todo-container">
       {todos.map((todosTask, index) => (
         <div className="todo-list-item" key={index}>
           <div
@@ -25,7 +25,7 @@ const TodoListItem = ({ todos, onCheck, checked, onDelete }) => {
           </button>
         </div>
       ))}
-    </>
+    </div>
   )
 }
 
