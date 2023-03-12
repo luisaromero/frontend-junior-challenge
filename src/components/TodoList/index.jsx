@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import "./styles.css";
 import { useSelector, useDispatch } from 'react-redux';
 import { allTodos, fetchTodo } from '../../reducers/todoSlice';
-import TodoListItem from '../TodoListItem'
+import TodoListItem from '../TodoListItem';
+import TodoForm from '../TodoForm'
 
 
 const TodoList = () => {
@@ -39,6 +40,7 @@ const TodoList = () => {
       <div className="no-todos">
         Looks like you&apos;re absolutely free today!
       </div>
+      {/* <TodoForm /> */}
     </div>
   );
 };
