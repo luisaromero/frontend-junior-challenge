@@ -17,6 +17,11 @@ export const fetchTodo = createAsyncThunk("todo/fetchTodo", async () => {
     return response?.data
 })
 
+export const editChecFromATask = createAsyncThunk("todo/editChecFromATask", async (idTask, checked) => {
+    const response = await axios.patch(`${BASE_URL}/${idTask}`, { checked: checked });
+    return response.data
+})
+
 export const deleteTodo = createAsyncThunk("todo/deleteTodo", async (idTask) => {
     try {
         await axios.delete(`${BASE_URL}/${idTask}`);
@@ -59,6 +64,8 @@ const todoSlice = createSlice({
             })
             .addCase(deleteTodo.rejected, (state, action) => {
                 console.log('error')
+            })
+            .addCase(editChecFromATask.fulfilled, (state, action) => {
             })
     }
 })

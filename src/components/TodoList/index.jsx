@@ -1,22 +1,25 @@
 import React, { useEffect, useState } from "react";
 import "./styles.css";
 import { useSelector, useDispatch } from 'react-redux';
-import { allTodos, fetchTodo, deleteTodo } from '../../reducers/todoSlice';
+import { allTodos, fetchTodo, deleteTodo, editChecFromATask } from '../../reducers/todoSlice';
 import TodoListItem from '../TodoListItem';
-import { unwrapResult } from "@reduxjs/toolkit";
-
+import { index } from '../../shared/adapters'
 import TodoForm from '../TodoForm'
 
 
 const TodoList = () => {
-
-  const [checked, setChecked] = useState(null)
-
   const dispatch = useDispatch()
   const todos = useSelector(allTodos)
   const postStatus = useSelector((state) => state.todo.status)
 
   console.log({ todos, postStatus })
+
+  const isCheckedInTodoList = (todoId) => {
+    const todosIndex = index(todos, 'id', todoId)
+    const selectedTodo = !todos[todosIndex].checked;
+    toggleCheckEdit({ todoId, isChecked: selectedTodo })
+  }
+
 
   useEffect(() => {
     if (postStatus === '') {
@@ -30,8 +33,11 @@ const TodoList = () => {
     });
   }
 
-  const toggleCheckEdit = (todoId, isChecked) => {
-    // Fix an ability to toggle task
+  const toggleCheckEdit = ({ todoId, isChecked }) => {
+    console.log(todoId, isChecked)
+    dispatch(editChecFromATask(todoId, isChecked)).then((result) => {
+      console.log(result.payload.error)
+    });
   };
 
 
@@ -40,9 +46,8 @@ const TodoList = () => {
     <div className="todo-list">
       <span className="todo-list-title">Things to do:</span>
       <div className="todo-list-content">
-        {/* Fix an ability to render todos */}
         {!!todos &&
-          <TodoListItem todos={todos} onDelete={handleDeleteTask} />}
+          <TodoListItem todos={todos} onDelete={handleDeleteTask} onCheck={isCheckedInTodoList} />}
       </div>
       <div className="no-todos">
         Looks like you&apos;re absolutely free today!
