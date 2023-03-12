@@ -1,8 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { createAsyncThunk } from '@reduxjs/toolkit'
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { index, spliceArr } from 'shared/adapters';
 import axios from "axios"
 
 const BASE_URL = "https://my-json-server.typicode.com/AlvaroArratia/static-todos-api/todos"
+
 
 const initialState = {
     todos: [],
@@ -14,6 +16,23 @@ export const fetchTodo = createAsyncThunk("todo/fetchTodo", async () => {
     const response = await axios.get(BASE_URL)
     return response?.data
 })
+
+export const deleteTodo = createAsyncThunk("todo/deleteTodo", async (idTask) => {
+    try {
+        await axios.delete(`${BASE_URL}/${idTask}`);
+        return {
+            id: idTask,
+            error: false
+        }
+    } catch (error) {
+        return {
+            error: true,
+            mesagge: error.message
+        }
+    }
+})
+
+
 
 const todoSlice = createSlice({
     name: 'todo',
@@ -31,6 +50,15 @@ const todoSlice = createSlice({
             .addCase(fetchTodo.rejected, (state, action) => {
                 state.status = "failed"
                 state.error = action.error.message
+            })
+            .addCase(deleteTodo.fulfilled, (state, action) => {
+                if (action.payload.error) return state
+                const indexId = index(state.todos, 'id', action.payload.id)
+                spliceArr(state.todos, indexId)
+                return state
+            })
+            .addCase(deleteTodo.rejected, (state, action) => {
+                console.log('error')
             })
     }
 })

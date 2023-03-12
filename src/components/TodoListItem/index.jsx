@@ -2,10 +2,12 @@ import React from "react";
 import "./styles.css";
 
 const TodoListItem = ({ todos, onCheck, checked, onDelete }) => {
+
+
   return (
     <div className="todo-container">
-      {todos.map((todosTask, index) => (
-        <div className="todo-list-item" key={index}>
+      {todos.map(({ label, id }) => (
+        <div className="todo-list-item" key={id}>
           <div
             tabIndex="0"
             role="checkbox"
@@ -18,9 +20,9 @@ const TodoListItem = ({ todos, onCheck, checked, onDelete }) => {
               checked={checked}
               onChange={onCheck}
             />
-            <span className={checked ? "todo-list-item-checked" : ""}>{todosTask.label}</span>
+            <span className={checked ? "todo-list-item-checked" : ""}>{label}</span>
           </div>
-          <button type="button" className="todo-list-item-delete" onClick={onDelete}>
+          <button type="button" className="todo-list-item-delete" onClick={() => onDelete(id)}>
             x
           </button>
         </div>

@@ -1,12 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./styles.css";
 import { useSelector, useDispatch } from 'react-redux';
-import { allTodos, fetchTodo } from '../../reducers/todoSlice';
+import { allTodos, fetchTodo, deleteTodo } from '../../reducers/todoSlice';
 import TodoListItem from '../TodoListItem';
+import { unwrapResult } from "@reduxjs/toolkit";
+
 import TodoForm from '../TodoForm'
 
 
 const TodoList = () => {
+
+  const [checked, setChecked] = useState(null)
+
   const dispatch = useDispatch()
   const todos = useSelector(allTodos)
   const postStatus = useSelector((state) => state.todo.status)
@@ -19,11 +24,13 @@ const TodoList = () => {
     }
   }, [postStatus, dispatch])
 
-  const handleDelete = (todoId) => {
-    // Fix an ability to delete task
-  };
+  const handleDeleteTask = async (todoId) => {
+    dispatch(deleteTodo(todoId)).then((result) => {
+      console.log(result.payload.error)
+    });
+  }
 
-  const toggleCheck = (todoId, isChecked) => {
+  const toggleCheckEdit = (todoId, isChecked) => {
     // Fix an ability to toggle task
   };
 
@@ -35,7 +42,7 @@ const TodoList = () => {
       <div className="todo-list-content">
         {/* Fix an ability to render todos */}
         {!!todos &&
-          <TodoListItem todos={todos} />}
+          <TodoListItem todos={todos} onDelete={handleDeleteTask} />}
       </div>
       <div className="no-todos">
         Looks like you&apos;re absolutely free today!
