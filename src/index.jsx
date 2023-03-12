@@ -8,7 +8,6 @@ import store from './store';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-store.dispatch(fetchTodo());
 
 
 root.render(

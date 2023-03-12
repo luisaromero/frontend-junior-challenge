@@ -12,7 +12,6 @@ const initialState = {
 
 export const fetchTodo = createAsyncThunk("todo/fetchTodo", async () => {
     const response = await axios.get(BASE_URL)
-    console.log(response.data)
     return response?.data
 })
 
@@ -27,7 +26,7 @@ const todoSlice = createSlice({
             })
             .addCase(fetchTodo.fulfilled, (state, action) => {
                 state.status = "succeeded"
-                state.todos = state.todos.concat(action.payload);
+                state.todos = action.payload;
             })
             .addCase(fetchTodo.rejected, (state, action) => {
                 state.status = "failed"
@@ -35,6 +34,10 @@ const todoSlice = createSlice({
             })
     }
 })
+
+export const allTodos = (state) => state.todo.todos;
+export const requestStatus = (state) => state.todo.status;
+
 
 
 export default todoSlice.reducer;
