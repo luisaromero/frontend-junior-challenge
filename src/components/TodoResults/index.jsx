@@ -1,10 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./styles.css";
+import { countItems } from "shared/adapters";
 
-const TodoResults = () => {
-  // Fix an ability to calculate completed tasks
+const parameterToBeDone = 'checked'
 
-  return <div className="todo-results">Done:</div>;
+const TodoResults = ({ todos }) => {
+  const [countDoneTasks, setCountDoneTasks] = useState(0)
+
+  useEffect(() => {
+    if (!!todos.length) {
+      const count = countItems(todos, parameterToBeDone)
+      setCountDoneTasks(count)
+    }
+  }, [todos])
+
+  console.log({ countDoneTasks }, 'count')
+
+  return <div className="todo-results">Done:{countDoneTasks}</div>;
 };
 
 export default TodoResults;

@@ -17,7 +17,7 @@ const TodoListItem = ({ todos, onCheck, checked, onDelete }) => {
             <input
               tabIndex="-1"
               type="checkbox"
-              checked={checked}
+              checked={null}
               onChange={() => onCheck(id)}
             />
             <span className={checked ? "todo-list-item-checked" : ""}>{label}</span>

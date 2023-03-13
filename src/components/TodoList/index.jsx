@@ -1,31 +1,19 @@
 import React, { useEffect, useState } from "react";
 import "./styles.css";
-import { useSelector, useDispatch } from 'react-redux';
-import { allTodos, fetchTodo, deleteTodo, editChecFromATask } from '../../reducers/todoSlice';
+import { useDispatch } from 'react-redux';
+import { deleteTodo, editChecFromATask } from '../../reducers/todoSlice';
 import TodoListItem from '../TodoListItem';
 import { index } from '../../shared/adapters'
-import TodoForm from '../TodoForm'
 
 
-const TodoList = () => {
+const TodoList = ({ todos }) => {
   const dispatch = useDispatch()
-  const todos = useSelector(allTodos)
-  const postStatus = useSelector((state) => state.todo.status)
-
-  console.log({ todos, postStatus })
-
   const isCheckedInTodoList = (todoId) => {
     const todosIndex = index(todos, 'id', todoId)
     const selectedTodo = !todos[todosIndex].checked;
     toggleCheckEdit({ todoId, isChecked: selectedTodo })
   }
 
-
-  useEffect(() => {
-    if (postStatus === '') {
-      dispatch(fetchTodo())
-    }
-  }, [postStatus, dispatch])
 
   const handleDeleteTask = async (todoId) => {
     dispatch(deleteTodo(todoId)).then((result) => {
@@ -34,8 +22,8 @@ const TodoList = () => {
   }
 
   const toggleCheckEdit = ({ todoId, isChecked }) => {
-    console.log(todoId, isChecked)
-    dispatch(editChecFromATask(todoId, isChecked)).then((result) => {
+    const data = { todoId, isChecked }
+    dispatch(editChecFromATask(data)).then((result) => {
       console.log(result.payload.error)
     });
   };
@@ -52,7 +40,6 @@ const TodoList = () => {
       <div className="no-todos">
         Looks like you&apos;re absolutely free today!
       </div>
-      {/* <TodoForm /> */}
     </div>
   );
 };

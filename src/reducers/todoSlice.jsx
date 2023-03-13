@@ -17,9 +17,21 @@ export const fetchTodo = createAsyncThunk("todo/fetchTodo", async () => {
     return response?.data
 })
 
-export const editChecFromATask = createAsyncThunk("todo/editChecFromATask", async (idTask, checked) => {
-    const response = await axios.patch(`${BASE_URL}/${idTask}`, { checked: checked });
-    return response.data
+export const editChecFromATask = createAsyncThunk("todo/editChecFromATask", async (data) => {
+    const { todoId, isChecked } = data;
+    try {
+        const response = await axios.patch(`${BASE_URL}/${todoId}`, { checked: isChecked });
+        console.log(response, 'res')
+        return {
+            error: false,
+            data: response.data
+        }
+    } catch (error) {
+        return {
+            error: true,
+            mesagge: error.message
+        }
+    }
 })
 
 export const deleteTodo = createAsyncThunk("todo/deleteTodo", async (idTask) => {
@@ -66,6 +78,8 @@ const todoSlice = createSlice({
                 console.log('error')
             })
             .addCase(editChecFromATask.fulfilled, (state, action) => {
+                const data = action.payload.data
+                state.todos[data.id].checked = data.checked
             })
     }
 })

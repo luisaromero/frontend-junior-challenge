@@ -5,4 +5,11 @@ export const spliceArr = (arr, indx) => {
     arr.splice(indx, 1)
 }
 
+export const countItems = (todos, param) => {
+    console.log(todos)
+    let count = 0
+    todos.map((e) => e[param] == true ? count = count + 1 : null)
+    return count
+}
+
 export default { index, spliceArr }
