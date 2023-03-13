@@ -14,7 +14,6 @@ const TodoResults = ({ todos }) => {
     }
   }, [todos])
 
-  console.log({ countDoneTasks }, 'count')
 
   return <div className="todo-results">Done:{countDoneTasks}</div>;
 };

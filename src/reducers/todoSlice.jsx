@@ -49,6 +49,22 @@ export const deleteTodo = createAsyncThunk("todo/deleteTodo", async (idTask) => 
     }
 })
 
+export const addNewTodo = createAsyncThunk("todo/addNewTodo", async (newTask) => {
+    console.log({ newTask })
+    try {
+        await axios.post(`${BASE_URL}/`, { newTask });
+        return {
+            data: newTask,
+            error: false
+        }
+    } catch (error) {
+        return {
+            error: true,
+            // mesagge: error.message
+        }
+    }
+})
+
 
 
 const todoSlice = createSlice({
@@ -80,6 +96,10 @@ const todoSlice = createSlice({
             .addCase(editChecFromATask.fulfilled, (state, action) => {
                 const data = action.payload.data
                 state.todos[data.id].checked = data.checked
+            })
+            .addCase(addNewTodo.fulfilled, (state, action) => {
+                console.log({ action })
+                state.todos = state.todos.concat(action.payload.data);
             })
     }
 })

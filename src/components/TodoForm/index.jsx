@@ -1,15 +1,37 @@
 import React, { useState } from "react";
+import { useDispatch } from 'react-redux';
 import { TextField, Grid, Button } from '@mui/material/';
-// import "./styles.css";
+import { addNewTodo } from "reducers/todoSlice";
+import { randomNumber, index } from "shared/adapters";
+
+
+
 
 const TodoForm = () => {
     const [task, setTask] = useState('')
+    const dispatch = useDispatch()
+
 
     const handleChange = ({ target: { value } }) => setTask(value)
 
-    //make the function to post to the api the new value
+    const postTask = async () => {
+        const data = createNewTask()
+        dispatch(addNewTodo(data)).then((result) => {
+            console.log('result', result)
+        })
+    }
 
-    const postTask = () => console.log('post')
+    const createNewTask = () => {
+        const randomId = randomNumber(6, 1000)
+        const newTask = {
+            id: randomId,
+            label: task,
+            checked: false,
+
+        }
+        return newTask
+    }
+
 
     const disableBtn = Boolean(!task.length)
 

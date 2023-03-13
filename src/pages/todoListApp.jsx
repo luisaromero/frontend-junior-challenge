@@ -24,7 +24,7 @@ const TodoListApp = () => {
         <>
             <TodoList todos={todos} />
             <TodoResults todos={todos} />
-            <TodoForm />
+            <TodoForm todos={todos} />
         </>
     );
 };
