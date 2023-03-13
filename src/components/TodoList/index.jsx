@@ -6,8 +6,11 @@ import TodoListItem from '../TodoListItem';
 import { index } from '../../shared/adapters'
 
 
+
 const TodoList = ({ todos, postStatus, openModal }) => {
   const dispatch = useDispatch()
+
+  //search the checked in the list of todos , and get if its false or true to conver to the check
   const isCheckedInTodoList = (todoId) => {
     const todosIndex = index(todos, 'id', todoId)
     const selectedTodo = !todos[todosIndex].checked;
@@ -20,6 +23,7 @@ const TodoList = ({ todos, postStatus, openModal }) => {
       result.payload.error && openModal()
     });
   }
+
 
   const toggleCheckEdit = ({ todoId, isChecked }) => {
     const data = { todoId, isChecked }

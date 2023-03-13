@@ -15,13 +15,15 @@ const TodoListItem = ({ todos, onCheck, checked, onDelete }) => {
             aria-checked
             className="todo-list-item-content"
           >
-            <input
-              tabIndex="-1"
-              type="checkbox"
-              checked={checked}
-              className="todo-check"
-              onChange={() => onCheck(id)}
-            />
+            <Tooltip title="Check">
+              <input
+                tabIndex="-1"
+                type="checkbox"
+                checked={checked}
+                className="todo-check"
+                onChange={() => onCheck(id)}
+              />
+            </Tooltip>
             <span className={checked ? "todo-list-item-checked" : ""}>{label}</span>
           </div>
           <Tooltip title="Delete">

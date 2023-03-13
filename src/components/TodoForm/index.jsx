@@ -22,6 +22,8 @@ const TodoForm = ({ openModal }) => {
         setTask('')
     }
 
+
+    // create a new task to send the api with a random id
     const createNewTask = () => {
         const randomId = randomNumber(6, 1000)
         const newTask = {
@@ -33,7 +35,7 @@ const TodoForm = ({ openModal }) => {
         return newTask
     }
 
-
+    // if the task doesnt have a words , the button be disabled
     const disableBtn = Boolean(!task.length)
 
     return (
