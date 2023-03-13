@@ -13,7 +13,6 @@ const TodoListApp = () => {
     const todos = useSelector(allTodos)
     const postStatus = useSelector((state) => state.todo.status)
 
-    console.log({ todos, postStatus })
 
     const openModal = () => setOpen(true)
 

@@ -6,7 +6,6 @@ export const spliceArr = (arr, indx) => {
 }
 
 export const countItems = (todos, param) => {
-    console.log(todos)
     let count = 0
     todos.map((e) => e[param] === true ? count = count + 1 : null)
     return count

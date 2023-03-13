@@ -21,7 +21,6 @@ export const editChecFromATask = createAsyncThunk("todo/editChecFromATask", asyn
     const { todoId, isChecked } = data;
     try {
         const response = await axios.patch(`${BASE_URL}/${todoId}`, { checked: isChecked });
-        console.log(response, 'res')
         return {
             error: false,
             data: response.data
@@ -50,7 +49,6 @@ export const deleteTodo = createAsyncThunk("todo/deleteTodo", async (idTask) => 
 })
 
 export const addNewTodo = createAsyncThunk("todo/addNewTodo", async (newTask) => {
-    console.log({ newTask })
     try {
         await axios.post(`${BASE_URL}/`, { newTask });
         return {
@@ -99,7 +97,6 @@ const todoSlice = createSlice({
                 state.todos[data.id].checked = data.checked
             })
             .addCase(addNewTodo.fulfilled, (state, action) => {
-                console.log({ action })
                 state.todos = state.todos.concat(action.payload.data);
             })
     }
