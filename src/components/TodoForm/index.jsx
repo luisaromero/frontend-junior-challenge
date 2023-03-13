@@ -39,13 +39,13 @@ const TodoForm = ({ openModal }) => {
     const disableBtn = Boolean(!task.length)
 
     return (
-        <Box sx={{ px: 12 }}>
-            <Grid container spacing={1} >
+        <Box sx={{ mx: 5, mt: 4 }}>
+            <Grid container spacing={1} justifyContent={"center"} >
                 <Grid item >
-                    <TextField size="small" label="Enter new to do" id="filterBy" onChange={handleChange} value={task} />
+                    <TextField fullWidth size="small" label="Enter new to do" id="filterBy" onChange={handleChange} value={task} />
                 </Grid>
                 <Grid item >
-                    <Button disabled={disableBtn} onClick={postTask} variant="contained" color="primary">ADD TO DO</Button>
+                    <Button fullWidth disabled={disableBtn} onClick={postTask} variant="contained" color="primary">ADD TO DO</Button>
                 </Grid>
             </Grid>
         </Box>

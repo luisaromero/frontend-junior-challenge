@@ -30,8 +30,9 @@ const TodoListApp = () => {
     return (
         <>
             <TodoList todos={todos} postStatus={postStatus} openModal={openModal} />
-            <TodoResults todos={todos} />
+
             <TodoForm todos={todos} openModal={openModal} />
+            <TodoResults todos={todos} />
             {<ModalError open={open} handleClose={closeModal} />}
         </>
     );

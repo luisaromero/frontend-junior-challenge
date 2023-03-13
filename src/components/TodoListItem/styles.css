@@ -10,6 +10,7 @@
   width: 400px;
   margin: 15px auto 5px;
   cursor: pointer;
+  background: #bb761821;
 }
 
 .todo-list-item-content {
@@ -29,17 +30,20 @@
 }
 
 .todo-list-item-delete {
-  background: rgb(244 76 76);
+  background: rgb(197 66 66);
   color: white;
   border: none;
   cursor: pointer;
+  font-size: 15px;
   width: 26px;
   height: 26px;
   flex-shrink: 0;
+  width: 30px;
+  height: 35px;
 }
 
 .todo-list-item-delete:hover {
-  background: rgb(172, 172, 172);
+  background: rgb(140, 46, 15);
 }
 
 .todo-list-item-checked {
