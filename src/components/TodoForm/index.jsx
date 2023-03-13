@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useDispatch } from 'react-redux';
-import { TextField, Grid, Button } from '@mui/material/';
+import { TextField, Grid, Button, Box } from '@mui/material/';
 import { addNewTodo } from "reducers/todoSlice";
 import { randomNumber, index } from "shared/adapters";
 
 
 
 
-const TodoForm = () => {
+const TodoForm = ({ openModal }) => {
     const [task, setTask] = useState('')
     const dispatch = useDispatch()
 
@@ -17,8 +17,9 @@ const TodoForm = () => {
     const postTask = async () => {
         const data = createNewTask()
         dispatch(addNewTodo(data)).then((result) => {
-            console.log('result', result)
+            result.payload.error === true && openModal()
         })
+        setTask('')
     }
 
     const createNewTask = () => {
@@ -36,14 +37,16 @@ const TodoForm = () => {
     const disableBtn = Boolean(!task.length)
 
     return (
-        <Grid container spacing={2} justify="space-between">
-            <Grid item md={8} xs={8}>
-                <TextField size="small" fullWidth label="Enter new to do" id="filterBy" onChange={handleChange} />
+        <Box sx={{ px: 12 }}>
+            <Grid container spacing={1} >
+                <Grid item >
+                    <TextField size="small" label="Enter new to do" id="filterBy" onChange={handleChange} value={task} />
+                </Grid>
+                <Grid item >
+                    <Button disabled={disableBtn} onClick={postTask} variant="contained" color="primary">ADD TO DO</Button>
+                </Grid>
             </Grid>
-            <Grid item xs={4} md={4}>
-                <Button fullWidth disabled={disableBtn} onClick={postTask} variant="contained" color="primary">ADD TO DO</Button>
-            </Grid>
-        </Grid>
+        </Box>
     )
 }
 

@@ -94,6 +94,7 @@ const todoSlice = createSlice({
                 console.log('error')
             })
             .addCase(editChecFromATask.fulfilled, (state, action) => {
+                if (action.payload.error) return state
                 const data = action.payload.data
                 state.todos[data.id].checked = data.checked
             })

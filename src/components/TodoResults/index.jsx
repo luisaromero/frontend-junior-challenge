@@ -15,7 +15,7 @@ const TodoResults = ({ todos }) => {
   }, [todos])
 
 
-  return <div className="todo-results">Done:{countDoneTasks}</div>;
+  return <div className="todo-results">Done : {countDoneTasks}</div>;
 };
 
 export default TodoResults;
